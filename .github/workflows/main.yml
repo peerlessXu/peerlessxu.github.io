@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - name: build docs
+      - name: npm install
         run: npm i
+      - name: build docs
         run: npm run docs:build
