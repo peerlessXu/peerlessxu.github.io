@@ -13,5 +13,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - name: run deploy.sh
-        run: bash deploy.sh
+      
+      - name: build
+        run: |
+          npm i
+          npm run docs:build
+
+      - name: commit
+        run: |
+          git config --global user.email 604191904@qq.com
+          git config --global user.name xyfei-rebot
+          cd docs/.vuepress/dist
+          git add .
+          git commit -m "deploy"
+		
+      - name: Push changes to gh-page
+        uses: ad-m/github-push-action@gh-page
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
