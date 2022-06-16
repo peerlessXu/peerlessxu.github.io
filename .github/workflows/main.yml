@@ -14,4 +14,5 @@ jobs:
         with:
           node-version: 14.x
       - name: build docs
+        run: npm i
         run: npm run docs:build
