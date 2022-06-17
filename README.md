@@ -8,5 +8,5 @@
 
 ## 开发
 
-- 本地调试：npm run docs:dev
-- 生产打包：npm run docs:build
+- 本地调试：`npm run docs:dev`
+- 生产打包：`npm run docs:build`
