@@ -1,36 +1,17 @@
-name: CI
-
-on: 
-  push:
-    branches: main
-
+name: Build and Deploy
+on: [push]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      
-      - name: build
-        run: |
-          npm i
-          npm run docs:build
+    - name: Checkout
+      uses: actions/checkout@master
 
-      - name: commit
-        run: |
-          git config --global user.email 604191904@qq.com
-          git config --global user.name xyfei-rebot
-          cd docs/.vuepress/dist
-          git init
-          git add .
-          git commit -m "deploy"
-
-      - name: Push changes to gh-page
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          branch: gh-pagh
-          directory: ./docs/.vuepress/dist
+    - name: vuepress-deploy
+      uses: jenkey2011/vuepress-deploy@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+        TARGET_REPO: peerlessXu/peerlessxu.github.io
+        TARGET_BRANCH: gh_pages
+        BUILD_SCRIPT: yarn && yarn build
+        BUILD_DIR: docs/.vuepress/dist/
